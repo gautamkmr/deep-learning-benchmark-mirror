@@ -143,7 +143,9 @@ def main():
     else:
         model_shape, num_classes, model_fn = MODELS[args.arch]
         dataset_shape = (args.samples,) + model_shape
-        train_dataset = dataset.SyntheticDataset(dataset_shape, num_classes)
+        #train_dataset = dataset.SyntheticDataset(dataset_shape, num_classes)
+        train_dataset = datasets.FakeData(size=int(args.dummy_data), num_classes=1000, transform=transforms.Compose([ transforms.ToTensor() ]))
+        val_dataset = datasets.FakeData(size=int(args.dummy_data/10), num_classes=1000, transform=transforms.Compose([ transforms.ToTensor() ]))
     ###
 
     if args.distributed:
